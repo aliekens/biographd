@@ -4,7 +4,7 @@ XMLRPC_C_CONFIG = /usr/local/bin/xmlrpc-c-config
 LDADD_SERVER_ABYSS = \
 	$(shell $(XMLRPC_C_CONFIG) c++2 abyss-server --ldadd)
 LDADD_MYSQL_CONNECTOR = \
-	-lmysqlclient_r -lmysqlcppconn -I/usr/local/include/cppconn -L/usr/local/mysql-5.1.54-osx10.6-x86_64/lib/
+	-lmysqlclient_r -lmysqlcppconn -I/usr/local/include/cppconn -L/usr/lib64/mysql/ -L/usr/local/lib
 
 all: biograph biographd
 
@@ -18,4 +18,4 @@ biograph: biograph.cpp $(OBJECTS)
 	g++ -O3 -c -o $@ $< -I/usr/local/include/cppconn
 
 clean:
-	rm -f *.o biographd biograph
+	rm -f *~ *.o biographd biograph
