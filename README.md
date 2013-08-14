@@ -12,6 +12,12 @@ Requirements
 * Mysql Connector Client C++: http://dev.mysql.com/tech-resources/articles/building-mysql-connector-cpp.html
     * TODO: requires tweaking of Makefile for correct path of mysqldev & mysqlconnector
 
+Compile it
+----------
+
+* Copy `mysqlconfig.h.sample` to `mysqlconfig.h` and configure
+* Run `make`
+
 Run  it
 -------
 

@@ -18,10 +18,7 @@
 #include <exception.h>
 #include <warning.h>
 
-#define DBHOST "tcp://127.0.0.1:3306"
-#define USER "root"
-#define PASSWORD "100%mysql"
-#define DATABASE "miner"
+#include "mysqlconfig.h"
 
 Distribution 
 getEntitySetFromMysql( int id ) {

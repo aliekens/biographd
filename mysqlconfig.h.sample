@@ -1,0 +1,9 @@
+#ifndef MYSQLCONFIG__H
+#define MYSQLCONFIG__H
+
+#define DBHOST "tcp://127.0.0.1:3306"
+#define USER "username"
+#define PASSWORD "password"
+#define DATABASE "databasename"
+
+#endif
