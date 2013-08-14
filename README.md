@@ -3,6 +3,8 @@ biographd
 
 BioGraph computing kernel daemon
 
+Provides an XMLRPC service to compute pageranks, find related entities, find paths between entities, from entities or entity sets, does comparisons between collections. An example client library for ruby (`biographclient.rb`) and test client (`client.rb`) are provided.
+
 
 Requirements
 ------------
@@ -13,7 +15,7 @@ Requirements
 Run  it
 -------
 
-* Start ./biographd
+* Start `./biographd`
     * TODO: daemonize
-* Test with ./client.rb
+* Test with `./client.rb`
     * TODO: know where the mysql database is, now hardcoded
