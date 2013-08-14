@@ -15,7 +15,6 @@ Requirements
 Run  it
 -------
 
-* Create directory structure with `cache/`, `cache/pagerank/`, `cache/entities/`, `cache/sets/`
 * Start `./biographd`
     * TODO: daemonize
 * Test with `./client.rb`
