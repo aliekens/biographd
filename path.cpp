@@ -8,9 +8,8 @@ void
 Path::print() const {
 	std::cout << probability << "\t";
 	for( const_iterator i = begin(); i != end(); i++ ) {
-		std::cout << *i << "\t";
+		std::cout << *i << ", ";
 	}
-	std::cout << std::endl;
 }
 
 struct  pathComparator {
@@ -21,7 +20,8 @@ struct  pathComparator {
 
 PathSet
 PathSet::getTopItems( int n ) {
-	assert( size() >= n );
+	if( size() < n )
+		return *this;
 	std::partial_sort(begin(), begin() + n, end(), pathComparator());
 	PathSet result;
 	for (int i = 0; i < n; ++i) {
@@ -33,8 +33,11 @@ PathSet::getTopItems( int n ) {
 void
 PathSet::print() const {
 	for( const_iterator i = begin(); i != end(); i++ ) {
+		std::cout << "{ ";
 		i->print();
+		std::cout << " } ";
 	}
+	std::cout << std::endl;
 }
 
 std::vector< unsigned char >
@@ -50,6 +53,7 @@ PathSet::convertToByteVector( int number ) const {
 	// determine and assign size of resulting bytearray
 	int size = 0;
 	int counter = 0;
+	size += sizeof(int);
 	for( const_iterator i = begin(); i != end() && counter < number; i++ ) {
 		size += sizeof( double ) + sizeof( int ) + i->size() * sizeof( int );
 	}
@@ -57,6 +61,11 @@ PathSet::convertToByteVector( int number ) const {
 	
 	counter = 0;
 	int offset = 0;
+	
+	int npaths = this->size();
+	memcpy( &( result[ offset ] ), &npaths, sizeof( unsigned int ) );
+	offset += sizeof( unsigned int );
+	
 	for( const_iterator i = begin(); i != end() && counter < number; i++ ) {
 		
 		// probability of a path

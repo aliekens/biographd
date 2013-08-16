@@ -79,7 +79,10 @@ class BioGraphDClient
     # format in usable format
     paths = []
     offset = 0
-    ( 1 .. 10 ).each do |pathcounter|
+    data = response.unpack( "@#{ offset }i" ) # npaths
+    offset += SIZEOFINTEGER
+    npaths = data[ 0 ]
+    ( 1 .. npaths ).each do |pathcounter|
       data = response.unpack( "@#{ offset }di" ) # first = probability of the path, second = number of nodes in the path
       offset += SIZEOFDOUBLE + SIZEOFINTEGER
       probability = data[ 0 ]

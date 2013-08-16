@@ -140,6 +140,7 @@ public:
 		
 		// compute paths
 		PathSet paths = graph->computePaths( distribution, sources, target, number );
+		std::cout << paths.size() << std::endl;
 		
 		// pack result
 		std::vector< unsigned char > byteVector = paths.convertToByteVector( number );

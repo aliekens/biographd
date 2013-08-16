@@ -290,7 +290,11 @@ Graph::computePaths( const Distribution& distribution, const Distribution& sourc
 	
 	// extend paths
 	
+	int counter = 0;
+	
 	do {
+		
+		counter += 1;
 		
 		PathSet newPaths;
 		
@@ -341,7 +345,7 @@ Graph::computePaths( const Distribution& distribution, const Distribution& sourc
 	
 		}
 	
-	} while( result.size() < n );
+	} while( ( result.size() < n ) && ( counter < 20 ) );
 	
 	foreach( path, result ) {
 		path->probability = computePathProbability( *path, distribution, sources, target );
