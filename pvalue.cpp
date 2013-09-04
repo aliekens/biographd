@@ -1,8 +1,10 @@
 #include "pvalue.h"
 
-void nrerror( char error_text[]) {
-	fprintf( stderr, "Error: %s\n", error_text);
-	exit(1);
+#include <string>
+#include <iostream>
+
+void nrerror( std::string error_text ) {
+	std::cerr << "Error: " << error_text << std::endl;
 }
 
 
@@ -11,10 +13,11 @@ float betai(float a, float b, float x)
 {
 	float betacf(float a, float b, float x);
 	float gammln(float xx);
-	void nrerror(char error_text[]);
 	float bt;
-	if (x < 0.0 || x > 1.0) 
+	if (x < 0.0 || x > 1.0)  {
 		nrerror("Bad x in routine betai");
+		return nanf("Bad x in routine betai");
+	}
 	if (x == 0.0 || x == 1.0) 
 		bt=0.0;
 	else // Factors in front of the continued fraction.
@@ -32,7 +35,6 @@ float betai(float a, float b, float x)
 float betacf(float a, float b, float x)
 // Used by betai: Evaluates continued fraction for incomplete beta function by modiﬁed Lentz’s method (§5.2).
 {
-	void nrerror(char error_text[]);
 	int m,m2;
 	float aa,c,d,del,h,qab,qam,qap;
 	qab=a+b; // These q’s will be used in factors that occur
@@ -63,7 +65,10 @@ float betacf(float a, float b, float x)
 		h *= del;
 		if (fabs(del-1.0) < EPS) break; // Are we done?
 	}
-	if (m > MAXIT) nrerror("a or b too big, or MAXIT too small in betacf");
+	if (m > MAXIT) {
+		nrerror("a or b too big, or MAXIT too small in betacf");
+		return nan("a or b too big, or MAXIT too small in betacf");
+	}
 	return h;
 }
 
