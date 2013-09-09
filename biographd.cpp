@@ -10,12 +10,42 @@
 
 #include <cassert>
 #include <stdexcept>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <signal.h>
 #include <unistd.h>
+#include <unistd.h>
+#include <sys/stat.h>
+
+#define LOCK_FILE	"/tmp/biographdaemon.lock"
+
+void daemonize() {
+	int i=fork();
+	if (i<0) exit(1); /* fork error */
+	if (i>0) exit(0); /* parent exits */
+	/* child (daemon) continues */
+	setsid(); /* obtain a new process group */
+	for (i=getdtablesize();i>=0;--i) close(i); /* close all descriptors */
+	i=open("/dev/null",O_RDWR); dup(i); dup(i); /* handle standart I/O */
+	umask(027); /* set newly created file permissions */
+	int lfp=open(LOCK_FILE,O_RDWR|O_CREAT,0640);
+	if (lfp<0) exit(1); /* can not open */
+	if (lockf(lfp,F_TLOCK,0)<0) exit(0); /* can not lock */
+	/* first instance continues */
+	char str[10];
+	sprintf(str,"%d\n",getpid());
+	write(lfp,str,strlen(str)); /* record pid to lockfile */
+}
 
 int main() {
 	
 	// create a graph from default files, compute prior pagerank
 	Graph *graph = new Graph();
+	
+	std::cerr << "Starting daemon." << std::endl;
+	daemonize();	
 	
 	try {
 		xmlrpc_c::registry myRegistry;
