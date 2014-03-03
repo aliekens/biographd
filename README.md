@@ -9,6 +9,7 @@ Provides an XMLRPC service to compute pageranks, find related entities, find pat
 Requirements
 ------------
 
+* XMLRPC for C: http://xmlrpc-c.sourceforge.net/
 * Mysql Connector Client C++: http://dev.mysql.com/tech-resources/articles/building-mysql-connector-cpp.html
     * TODO: requires tweaking of Makefile for correct path of mysqldev & mysqlconnector
 
