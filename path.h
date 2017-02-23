@@ -20,6 +20,7 @@
 #define PATH__H
 
 #include <vector>
+#include <cstring>
 
 class Path : public std::vector< int > {
 public:
