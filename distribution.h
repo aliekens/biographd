@@ -24,6 +24,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <cstring>
 
 class Distribution : public std::map< int, double > {
 public:
